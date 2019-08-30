@@ -7,8 +7,8 @@ $(error "Please set DEVKITARM in your environment. export DEVKITARM=<path to>dev
 endif
 
 GAME_TITLE := ftpd v$(VERSION)
-#GAME_SUBTITLE1 := built with devkitARM
-#GAME_SUBTITLE2 := http://devitpro.org
+GAME_SUBTITLE1 := 2019/08/30
+GAME_SUBTITLE2 := (unofficial fork)
 
 include $(DEVKITARM)/ds_rules
 

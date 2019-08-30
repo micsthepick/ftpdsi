@@ -23,6 +23,7 @@
 #if defined(_3DS) || defined(_NDS) || defined(__SWITCH__)
 static PrintConsole status_console;
 static PrintConsole main_console;
+static PrintConsole warning_console;
 #endif
 #if ENABLE_LOGGING
 static bool disable_logging = false;
@@ -55,10 +56,14 @@ console_init(void)
 
   consoleInit(&main_console, 0, BgType_Text4bpp, BgSize_T_256x256, 22, 3, true, true);
   status_console = main_console;
+  warning_console = main_console;
 
   consoleSetWindow(&status_console, 0, 0, 32, 2);
-  consoleSetWindow(&main_console, 0, 2, 32, 22);
+  consoleSetWindow(&main_console, 0, 2, 32, 21);
+  consoleSetWindow(&warning_console, 0, 23, 32, 1);
 
+  consoleSelect(&warning_console);
+  console_print(RED "This is an unofficial fork!");
   consoleSelect(&main_console);
 }
 #endif
