@@ -27,11 +27,11 @@
 #define lstat stat
 #elif defined(_NDS)
 #include <nds.h>
-#include <dswifi9.h>
+#include <dsiwifi9.h>
 #define LACKS_POLL
-#define INET_ADDRSTRLEN 16
-#define socklen_t int
-#define gethostid() Wifi_GetIP()
+//#define INET_ADDRSTRLEN 16
+//#define socklen_t int
+#define gethostid() DSiWifi_GetIP()
 #define lstat stat
 /* ftpd requires a blocking close() operation with this few sockets */
 /* fortunately, there is one in dswifi - just not directly exposed */
@@ -49,6 +49,7 @@ extern int forceclosesocket(int socket);
 #include <poll.h>
 #else
 #include <sys/select.h>
+#ifndef _NDS
 #define POLLIN 1
 #define POLLOUT 2
 #define POLLPRI 4
@@ -62,6 +63,7 @@ struct pollfd {
   int events;
   int revents;
 };
+#endif
 
 #define poll(a,b,c) fakepoll(a,b,c)
 int fakepoll(struct pollfd *fds, int nfds, int timeout) {
@@ -553,10 +555,10 @@ ftp_closesocket(int  fd,
 #endif
 
   /* close socket */
-#ifdef _NDS
-  rc = forceclosesocket(fd);
-  if(rc != 0)
-    console_print(RED "forceclosesocket: %d %s\n" RESET, errno, strerror(errno));
+#ifndef _NDS
+  //rc = forceclosesocket(fd);
+  //if(rc != 0)
+  //  console_print(RED "forceclosesocket: %d %s\n" RESET, errno, strerror(errno));
 #else
   rc = close(fd);
   if(rc != 0)
@@ -2112,10 +2114,10 @@ ftp_init(void)
 #elif defined(_NDS)
   console_print(GREEN "Waiting for wifi...\n" RESET);
 
-  int ret = Wifi_InitDefault(WFC_CONNECT);
+  int ret = DSiWifi_InitDefault(WFC_CONNECT);
   if(!ret)
   {
-    console_print(RED "Wifi_InitDefault: error\n" RESET);
+    console_print(RED "DsiWifi_InitDefault: error\n" RESET);
     return -1;
   }
 

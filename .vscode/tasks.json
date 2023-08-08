@@ -1,0 +1,120 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "make",
+            "type": "shell",
+            "command": "make",
+            "problemMatcher": [
+                "$gcc",
+                {
+                    "owner": "cpp",
+                    "fileLocation": "absolute",
+                    "pattern": {
+                        "regexp": "^(.*?):(\\d+):(\\d+): (?:[fF]atal\\s)?([wW]arning|[eE]rror|[iI]nfo(?:rmation)?):\\s(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "severity": 4,
+                        "message": 5,
+                        "column": 3
+                    }
+                },
+                {
+                    "owner": "make",
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceFolder}/client"
+                    ],
+                    "pattern": {
+                        "regexp": "^(make(?:\\[\\d+\\])?):\\s('(.*)' is up to date.)$",
+                        "file": 3,
+                        "code": 1,
+                        "message": 2
+                    },
+                    "severity": "info"
+                },
+                {
+                    "owner": "ld",
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceFolder}/client"
+                    ],
+                    "pattern": {
+                        "regexp": "^.*?ld:\\s(.*):\\((.*)\\):\\s(undefined reference to\\s`.*')$",
+                        "file": 1,
+                        "code": 2,
+                        "message": 3
+                    },
+                    "severity": "error"
+                }
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "make rebuild",
+            "type": "shell",
+            "command": "make clean && make",
+            "problemMatcher": [
+                "$gcc",
+                {
+                    "owner": "cpp",
+                    "fileLocation": "absolute",
+                    "pattern": {
+                        "regexp": "^(.*?):(\\d+):(\\d+): (?:[fF]atal\\s)?([wW]arning|[eE]rror|[iI]nfo(?:rmation)?):\\s(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "severity": 4,
+                        "message": 5,
+                        "column": 3
+                    }
+                },
+                {
+                    "owner": "make",
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceFolder}/client"
+                    ],
+                    "pattern": {
+                        "regexp": "^(make(?:\\[\\d+\\])?):\\s('(.*)' is up to date.)$",
+                        "file": 3,
+                        "code": 1,
+                        "message": 2
+                    },
+                    "severity": "info"
+                },
+                {
+                    "owner": "ld",
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceFolder}/client"
+                    ],
+                    "pattern": {
+                        "regexp": "^.*?ld:\\s(.*):\\((.*)\\):\\s(undefined reference to\\s`.*')$",
+                        "file": 1,
+                        "code": 2,
+                        "message": 3
+                    },
+                    "severity": "error"
+                }
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "make & push",
+            "type": "shell",
+            "command": "make && dslink ftpdsi.dsi",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

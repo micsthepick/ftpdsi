@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "jsfx": "Jesusonic",
+        "jsfx-inc": "Jesusonic",
+        "*.jsfx": "Jesusonic",
+        "dsiwifi9.h": "c",
+        "inet.h": "c"
+    }
+}
